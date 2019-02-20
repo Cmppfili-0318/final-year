@@ -20,36 +20,24 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 
 	// Creating a path to the file
-	String filePath = "C:\\complete-distilled-sorted.csv";
+	String filePath = "E:\\complete-distilled-2.csv";
 	
 	// Instantiating the FileRead class
 	FileRead in = new FileRead();
 	
-	// Transforming the file into an InputStream for iterative univocity parser
-	InputStream stream = new ByteArrayInputStream(filePath.getBytes(StandardCharsets.UTF_8));
+	//in.univocity(filePath);
+	in.univocityIterativeParser(filePath);
 	
+	// in.usingCustBuffReader();
 	
-	in.usingCustBuffReader();
-	
-	
-	in.fastCsvAtOnce(filePath);
-
-	/*
-	 * Univocity csv Parsers not working
-	 * NullPointer
-	 */
-	
-	 // in.univocityParserIterative(stream);
-	 // in.univocityParserAtOnce(filePath);
-	 
-	
+	// in.fastCsvAtOnce(filePath);
 	
 	/*
 	 * fastCsv Parser working but slow
 	 * @param path to the file to be read by the parser
 	 */
 	
-	 in.fastCsv(filePath);
+	// in.fastCsv(filePath);
 	 
 	 
 	}
