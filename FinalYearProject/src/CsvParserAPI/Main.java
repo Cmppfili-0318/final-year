@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 
 import com.univocity.parsers.csv.CsvParser;
 
@@ -25,7 +26,10 @@ public class Main {
 	// Instantiating the FileRead class
 	FileRead in = new FileRead();
 	
-	//in.univocity(filePath);
+	/*
+	 * 1.2 m using SSD
+	 * 2.8 m using HDD
+	 */
 	in.univocityIterativeParser(filePath);
 	
 	// in.usingCustBuffReader();
