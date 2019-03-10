@@ -21,16 +21,17 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 
 	// Creating a path to the file
-	String filePath = "E:\\complete-distilled-2.csv";
+	String filePath = "C:\\complete-distilled-2.csv";
 	
 	// Instantiating the FileRead class
 	FileRead in = new FileRead();
 	
 	/*
-	 * 1.2 m using SSD
-	 * 2.8 m using HDD
+	 * Calling the parseFile function in order to process the file
+	 * @param filePath is the specified destination of the file subjected to processing
+	 * @param n (int) specifies how many traces are to be processed by the fileRead class (sample size)
 	 */
-	in.univocityIterativeParser(filePath);
+	in.processFile(filePath, 4000000);
 	
 	// in.usingCustBuffReader();
 	

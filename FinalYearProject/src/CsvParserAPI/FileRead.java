@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
@@ -49,37 +50,42 @@ import java.util.stream.Stream;
 
 
 public class FileRead {
-	
-	
+
 	static long startTime = System.currentTimeMillis();
-	private static long total = 0;
 	long elapsedTime = System.currentTimeMillis() - startTime;	
 	String relativePath;
+	ArrayList<HashMap<String,String>> arrayList = new ArrayList<>();
+	HashMap<String,String> Hash = new HashMap<>();
+	CsvParserSettings settings = new CsvParserSettings();
+	String headers[] = {"Job Extension", "JobID"};
 	
 	public FileRead() {
 		
 	}
 
-	public void univocityIterativeParser(String filePath) {
-		ArrayList<HashMap<String,String>> ArrayL = new ArrayList<>();
-		HashMap<String,String> Hash = new HashMap<>();
-		CsvParserSettings settings = new CsvParserSettings();
+	public void processFile(String filePath, int linesToRead) {
+		
+		settings.setNumberOfRecordsToRead(linesToRead);
+		settings.setHeaderExtractionEnabled(true);
+		// Prints out only file extension name and job ID
+		settings.selectIndexes(0,1);
+		settings.setHeaders(headers);
 		final long startTime = System.currentTimeMillis();	
 		
 		settings.setProcessor(new AbstractRowProcessor() {
 		    @Override
 		    public void rowProcessed(String[] row, ParsingContext context) {
-		    int length = row.length;
+		    context.headers();
+		    System.out.println(Arrays.toString(row));
 		    Hash.clear();
-		   // Hash.put("File Extension", row.getField(0));
-		    ArrayL.add(Hash);
-		   // System.out.println(length);
-		   // context.currentRecord();
+		    //Hash.put("File Extension", row.getField(0));
+		    arrayList.add(Hash);
 		} 	 
 	});
-
+		
 		CsvParser parser = new CsvParser(settings);
 		//`parse` doesn't return anything. Rows go to the `rowProcessed` method.
+		
 		try {
 			parser.parse(new File(filePath));
 		} catch (Exception e) {
@@ -88,26 +94,7 @@ public class FileRead {
 		
 		long elapsedTime = System.currentTimeMillis() - startTime;
 		System.out.println("Execution Time in ms:" + elapsedTime);
-		
 	}	
-
-	public void univocity(String filePath) {
-		int linecounter = 1;
-		CsvParserSettings settings = new CsvParserSettings();
-		CsvParser parser = new CsvParser(settings);
-		settings.setMaxColumns(1024);
-		settings.setHeaderExtractionEnabled(true);
-		settings.setLineSeparatorDetectionEnabled(true);
-		for (String[] row : parser.iterate(new File(filePath))) {
-			if((linecounter % 2) > 0) {
-				System.out.println(Arrays.toString(row));
-			}	
-		}
-		
-		long elapsedTime = System.currentTimeMillis() - startTime;
-		System.out.println("Execution Time in ms:" + elapsedTime);
-		
-	}
 }
 	
 
