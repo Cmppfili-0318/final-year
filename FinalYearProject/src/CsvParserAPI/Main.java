@@ -31,7 +31,8 @@ public class Main {
 	 * @param filePath is the specified destination of the file subjected to processing
 	 * @param n (int) specifies how many traces are to be processed by the fileRead class (sample size)
 	 */
-	in.processFile(filePath, 4000000);
+	 //in.processFileWithSample(filePath, 20000);
+	 in.processFileSkipLines(filePath, 300000);
 	
 	// in.usingCustBuffReader();
 	

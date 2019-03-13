@@ -20,8 +20,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
 import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
@@ -51,44 +53,87 @@ import java.util.stream.Stream;
 
 public class FileRead {
 
-	static long startTime = System.currentTimeMillis();
-	long elapsedTime = System.currentTimeMillis() - startTime;	
-	String relativePath;
-	ArrayList<HashMap<String,String>> arrayList = new ArrayList<>();
-	HashMap<String,String> Hash = new HashMap<>();
-	CsvParserSettings settings = new CsvParserSettings();
-	String headers[] = {"Job Extension", "JobID"};
+	private static long startTime = System.currentTimeMillis();
+	private long elapsedTime = System.currentTimeMillis() - startTime;	
+	private String relativePath;
+	private Trace[] traceList;
+	private ArrayList<Trace> arrayList = new ArrayList<>();
+	private CsvParserSettings parseSettings = new CsvParserSettings();
+	private CsvWriterSettings writeSettings = new CsvWriterSettings();
+	private String[] headers = {"Trace File Name", "Trace Job ID", "Workflow Phase", "Past Error of Phase", "Future Error of Phase", "Job 1 Runtime", "Job 2 Runtime", "Job 3 Runtime", "Job 4 Runtime", "Job 5 Runtime", "Job 6 Runtime", "Job 7 Runtime", "Job 8 Runtime", "Job 9 Runtime", "Job 10 Runtime", "Job 11 Runtime", "Job 12 Runtime", "Job 13 Runtime", "Job 14 Runtime", "Job 15 Runtime", "Job 16 Runtime", "Job 17 Runtime", "Job 18 Runtime", "Job 19 Runtime", "Job 20 Runtime"};
 	
 	public FileRead() {
 		
 	}
 
-	public void processFile(String filePath, int linesToRead) {
-		
-		settings.setNumberOfRecordsToRead(linesToRead);
-		settings.setHeaderExtractionEnabled(true);
+	public void processFileWithSample(String filePath, int linesToRead) {
+		//writeSettings.setHeaderWritingEnabled(true);
+		//writeSettings.setHeaders(headers);
+		parseSettings.setNumberOfRecordsToRead(linesToRead);
+		parseSettings.setHeaderExtractionEnabled(false);
+		parseSettings.setHeaders(headers);
 		// Prints out only file extension name and job ID
-		settings.selectIndexes(0,1);
-		settings.setHeaders(headers);
+		//settings.selectIndexes(0,1);
 		final long startTime = System.currentTimeMillis();	
 		
-		settings.setProcessor(new AbstractRowProcessor() {
+		parseSettings.setProcessor(new AbstractRowProcessor() {
 		    @Override
 		    public void rowProcessed(String[] row, ParsingContext context) {
-		    context.headers();
+		    //writeSettings.setHeaders(headers);
 		    System.out.println(Arrays.toString(row));
-		    Hash.clear();
-		    //Hash.put("File Extension", row.getField(0));
-		    arrayList.add(Hash);
+		   // System.out.println(context.headers());
+		    arrayList.clear();
+		    //arrayList.add(Hash);
 		} 	 
 	});
 		
-		CsvParser parser = new CsvParser(settings);
+		CsvParser parser = new CsvParser(parseSettings);
+		CsvWriter writer = new CsvWriter(writeSettings);
+		//parser.getContext().header
+		
 		//`parse` doesn't return anything. Rows go to the `rowProcessed` method.
 		
 		try {
 			parser.parse(new File(filePath));
+			parser.getContext().headers();
+			//writer.writeHeaders(headers);
 		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		
+		long elapsedTime = System.currentTimeMillis() - startTime;
+		System.out.println("Execution Time in ms:" + elapsedTime);
+	}
+	
+	public void processFileSkipLines(String filePath, int linesToSkip) throws Exception {
+		
+		parseSettings.setNumberOfRowsToSkip(linesToSkip);
+		parseSettings.setHeaderExtractionEnabled(true);
+		parseSettings.setHeaders(headers);
+		CsvParser parser = new CsvParser(parseSettings);
+		/*InputStream stream = new FileInputStream(filePath);
+		int avgNo = 257;
+		int skipByBytes = avgNo*linesToSkip;
+		stream.skip(skipByBytes);*/
+		
+		// Prints out only file extension name and job ID
+		//settings.selectIndexes(0,1);
+		//settings.setHeaders(headers);
+		final long startTime = System.currentTimeMillis();	
+		
+		parseSettings.setProcessor(new AbstractRowProcessor() {
+		    @Override
+		    
+		    public void rowProcessed(String[] row, ParsingContext context) {
+		    //System.out.println(Arrays.toString(row));;
+		} 	 
+	});
+		
+		//`parse` doesn't return anything. Rows go to the `rowProcessed` method.
+		try {
+			parser.parse(new File(filePath));
+			writeSettings.getHeaders();
+			} catch (Exception e) {
 			e.printStackTrace();
 		} 
 		
