@@ -108,13 +108,13 @@ public class FileRead {
 	public void processFileSkipLines(String filePath, int linesToSkip) throws Exception {
 		
 		parseSettings.setNumberOfRowsToSkip(linesToSkip);
-		parseSettings.setHeaderExtractionEnabled(true);
-		parseSettings.setHeaders(headers);
+		parseSettings.setHeaderExtractionEnabled(false);
+		//parseSettings.setHeaders(headers);
 		CsvParser parser = new CsvParser(parseSettings);
-		/*InputStream stream = new FileInputStream(filePath);
+		InputStream stream = new FileInputStream(filePath);
 		int avgNo = 257;
 		int skipByBytes = avgNo*linesToSkip;
-		stream.skip(skipByBytes);*/
+		stream.skip(skipByBytes);
 		
 		// Prints out only file extension name and job ID
 		//settings.selectIndexes(0,1);
@@ -131,7 +131,7 @@ public class FileRead {
 		
 		//`parse` doesn't return anything. Rows go to the `rowProcessed` method.
 		try {
-			parser.parse(new File(filePath));
+			parser.parse(stream);
 			writeSettings.getHeaders();
 			} catch (Exception e) {
 			e.printStackTrace();
