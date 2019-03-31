@@ -53,9 +53,6 @@ import java.util.stream.Stream;
 
 public class FileRead {
 
-	private static long startTime = System.currentTimeMillis();
-	private long elapsedTime = System.currentTimeMillis() - startTime;	
-	private String relativePath;
 	private Trace[] traceList;
 	private ArrayList<Trace> arrayList = new ArrayList<>();
 	private CsvParserSettings parseSettings = new CsvParserSettings();
@@ -80,8 +77,8 @@ public class FileRead {
 		    @Override
 		    public void rowProcessed(String[] row, ParsingContext context) {
 		    //writeSettings.setHeaders(headers);
-		    System.out.println(Arrays.toString(row));
-		   // System.out.println(context.headers());
+		    //System.out.println(Arrays.toString(row));
+		    //System.out.println(context.headers());
 		    arrayList.clear();
 		    //arrayList.add(Hash);
 		} 	 
@@ -90,9 +87,10 @@ public class FileRead {
 		CsvParser parser = new CsvParser(parseSettings);
 		CsvWriter writer = new CsvWriter(writeSettings);
 		//parser.getContext().header
-		
+	
+		if(filePath.endsWith(".csv")) {
+			
 		//`parse` doesn't return anything. Rows go to the `rowProcessed` method.
-		
 		try {
 			parser.parse(new File(filePath));
 			parser.getContext().headers();
@@ -105,9 +103,14 @@ public class FileRead {
 		System.out.println("Execution Time in ms:" + elapsedTime);
 	}
 	
+		else {
+			throw new java.lang.Error("Incorrect File Format, must be a .csv File");
+		}
+	}
+	
+	//skipping lines doesn't work - parser behaviour
 	public void processFileSkipLines(String filePath, int linesToSkip) throws Exception {
-		
-		parseSettings.setNumberOfRowsToSkip(linesToSkip);
+		// No header so the parser doesn't need to read the first line of file
 		parseSettings.setHeaderExtractionEnabled(false);
 		//parseSettings.setHeaders(headers);
 		CsvParser parser = new CsvParser(parseSettings);
@@ -123,23 +126,30 @@ public class FileRead {
 		
 		parseSettings.setProcessor(new AbstractRowProcessor() {
 		    @Override
-		    
 		    public void rowProcessed(String[] row, ParsingContext context) {
 		    //System.out.println(Arrays.toString(row));;
 		} 	 
 	});
 		
+		if(filePath.endsWith(".csv")) {
+			
 		//`parse` doesn't return anything. Rows go to the `rowProcessed` method.
 		try {
 			parser.parse(stream);
-			writeSettings.getHeaders();
+			//writeSettings.getHeaders();
 			} catch (Exception e) {
 			e.printStackTrace();
 		} 
 		
 		long elapsedTime = System.currentTimeMillis() - startTime;
 		System.out.println("Execution Time in ms:" + elapsedTime);
-	}	
+		stream.close();
+		}
+		else {
+			throw new java.lang.Error("Incorrect File Format, Must be a .csv File");
+			//System.out.println("Incorrect file format");
+		}
+	}
 }
 	
 

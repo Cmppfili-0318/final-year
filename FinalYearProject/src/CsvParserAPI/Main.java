@@ -22,6 +22,7 @@ public class Main {
 
 	// Creating a path to the file
 	String filePath = "C:\\complete-distilled-2.csv";
+	String testPath = "C:\\bdlog.txt";
 	
 	// Instantiating the FileRead class
 	FileRead in = new FileRead();
@@ -31,9 +32,13 @@ public class Main {
 	 * @param filePath is the specified destination of the file subjected to processing
 	 * @param n (int) specifies how many traces are to be processed by the fileRead class (sample size)
 	 */
-	 //in.processFileWithSample(filePath, 20000);
-	 in.processFileSkipLines(filePath, 300000);
 	
+	 //in.processFileWithSample(filePath, 2000000);
+	 in.processFileSkipLines(filePath, 0);
+	
+	 // testing the incorrect file format exception throwing with a simple .txt file
+   	 //in.processFileWithSample(testPath, 5);
+	 
 	// in.usingCustBuffReader();
 	
 	// in.fastCsvAtOnce(filePath);
