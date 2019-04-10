@@ -14,11 +14,14 @@ import java.util.stream.Stream;
 
 // Efficiency benchmark for different methods of reading .csv file
 public class FileInput { 
+	
 	static long startTime = System.currentTimeMillis();
 	private static long total = 0;
-	private static final Pattern FIELD_DELIMETER_PATTERN = Pattern.compile("\\^\\|\\");
 	
-	private void usingScanner() throws FileNotFoundException {
+	//Last 2 backslashes are not followed by any special characters
+	private static final Pattern FIELD_DELIMETER_PATTERN = Pattern.compile("\\^\\|\\^");	
+	
+/*	private void usingScanner() throws FileNotFoundException {
 		String s;
 		try (Scanner data = new Scanner(new File(this.getClass().getResource("complete-distilled-sorted.csv").getPath()))) {
 			while (data.hasNextLine()) {
@@ -32,7 +35,7 @@ public class FileInput {
 		} catch (Exception e) {
 			System.err.println("Error");
 	}
-}
+} 
 	//Around 9 minutes
 	private void usingBuffReader() throws FileNotFoundException, IOException {
 		try (BufferedReader data = new BufferedReader(new FileReader(this.getClass().getResource("complete-distilled-sorted.csv").getPath()))) {
@@ -53,22 +56,24 @@ public class FileInput {
 	* 3rd attempt 469065ms
 	* Using the custom buffered reader in comparison to buffered reader
 	*/
-	private void usingCustBuffReader() throws FileNotFoundException, IOException {
-		try (CustomBufferedReader data = new CustomBufferedReader(new FileReader(new File(this.getClass().getResource("complete.distilled-sorted.csv").getPath())))) {
-			String s;
-			while ((s = data.readLine()) != null) {
-				String[] fields = FIELD_DELIMETER_PATTERN.split(s, 0);
-				total += fields.length;
-				long elapsedTime = System.currentTimeMillis() - startTime;
-				System.out.println("Execution Time in ms: " + elapsedTime);
-				data.close();
-			}
-		} catch (Exception e) {
-			System.err.println("Error");
-	}
-}
 	
-	private void readFileUsingLineReader() {
+	public void usingCustBuffReader() throws FileNotFoundException, IOException {
+		try (CustomBufferedReader data = new CustomBufferedReader(new FileReader(new File(this.getClass().getResource("E:\\complete-distilled-2.csv").getPath())))) {;
+		String s;
+				while ((s = data.readLine()) != null) {
+					String [] fields = FIELD_DELIMETER_PATTERN.split(s, 0);
+					total += fields.length;
+					long elapsedTime = System.currentTimeMillis() - startTime;
+					System.out.println("Execution Time in ms:" + elapsedTime);
+					data.close();
+				}
+			
+	} catch (Exception e) {
+		System.err.println("Error");
+		}
+	}
+	
+/*	private void readFileUsingLineReader() {
 
 	        try (LineNumberReader data = new LineNumberReader(new FileReader(new File(this.getClass().getResource("complete-distilled-sorted.csv").getPath())))) {
 	            String s;
@@ -94,7 +99,7 @@ public class FileInput {
 	        } catch (IOException e1) {
 	            e1.printStackTrace();
 	        }
-	    }
+	    } 
 
 	 private void readFileUsingBufferedReaderFileChannel() {
 	        try (FileInputStream inputStream = new FileInputStream(this.getClass().getResource("complete-distilled-sorted.csv").getPath())) {
@@ -113,7 +118,5 @@ public class FileInput {
 	            System.err.println("Error");
 	        }
 
-	    }
-
-
+	   } */
 }

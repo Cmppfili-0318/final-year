@@ -11,13 +11,12 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry excluding="SimpleFlatMapper_csvParser.java" kind="src" path="DISSECT-CF DATA"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/FastCSV"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/FastCSV"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/univocity-parsers"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
