@@ -37,7 +37,7 @@ public class ParserSolutions {
 		 * 2nd attempt with % 3 = 6.7771 m
 		 * 3rd attempt with % 3 = 
 		 */
-	
+	/*
 		public void fastCsvAtOnce(String path) throws IOException {
 			File file = new File(path);
 			CsvReader csvReader = new CsvReader();
@@ -64,7 +64,7 @@ public class ParserSolutions {
 		} catch (Exception e) {
 			System.err.println("Error");
 			}
-		}
+		}*/
 	
 		
 		public void fastCsv(String filePath) { 

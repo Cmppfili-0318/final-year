@@ -33,8 +33,16 @@ public class Main {
 	 * @param n (int) specifies how many traces are to be processed by the fileRead class (sample size)
 	 */
 	
-	 //in.processFileWithSample(filePath, 2000000);
-	 in.processFileSkipLines(filePath, 0);
+	// in.processFileWithSample(filePath, 45000000);
+	 
+	 in.firstParser(filePath);
+	
+	/*
+	 * @param specified file path for the parser
+	 * @param number of lines to be skipped by the parser
+	 *
+	 in.processFileSkipLines(filePath, 10000000);
+	 */
 	
 	 // testing the incorrect file format exception throwing with a simple .txt file
    	 //in.processFileWithSample(testPath, 5);
