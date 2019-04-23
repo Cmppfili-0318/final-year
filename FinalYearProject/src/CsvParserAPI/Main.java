@@ -26,6 +26,7 @@ public class Main {
 	
 	// Instantiating the FileRead class
 	FileRead in = new FileRead();
+	ParserSolutions in2 = new ParserSolutions();
 	
 	/*
 	 * Calling the parseFile function in order to process the file
@@ -33,21 +34,24 @@ public class Main {
 	 * @param n (int) specifies how many traces are to be processed by the fileRead class (sample size)
 	 */
 	
-	// in.processFileWithSample(filePath, 45000000);
+	 // in.processFileWithSample(filePath, 45000000);
 	 
-	 in.firstParser(filePath);
+	 //in.firstParser(filePath);
 	
 	/*
 	 * @param specified file path for the parser
 	 * @param number of lines to be skipped by the parser
-	 *
-	 in.processFileSkipLines(filePath, 10000000);
+	 *	test 1: 92498
+	 *	test 2: 91499
+	 *	test 3: 92249
 	 */
+	// in.processFileSkipLines(filePath, 0);
+	
+	in2.fastCsv(filePath);
+	 
 	
 	 // testing the incorrect file format exception throwing with a simple .txt file
    	 //in.processFileWithSample(testPath, 5);
-	 
-	// in.usingCustBuffReader();
 	
 	// in.fastCsvAtOnce(filePath);
 	

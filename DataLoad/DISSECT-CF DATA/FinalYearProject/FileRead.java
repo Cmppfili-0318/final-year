@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 import de.siegmar.fastcsv.reader.CsvParser;
 import de.siegmar.fastcsv.reader.CsvReader;
 import de.siegmar.fastcsv.reader.CsvRow;
-import org.simpleflatmapper.csv.*;
+
 
 /* This class is responsible for reading large .csv files.
  * 
@@ -52,6 +52,7 @@ public class FileRead {
 		filePath = path;
 	}
 
+	// 178156ms
 	public void fastCsv() { 
 		File file = new File(filePath);
 		CsvReader csvReader = new CsvReader();
@@ -60,10 +61,8 @@ public class FileRead {
 		try (CsvParser csvParser = csvReader.parse(file, StandardCharsets.UTF_8)) {
 		    CsvRow row;
 		    while ((row = csvParser.nextRow()) != null) {
-		    	if ((linecounter % 500) > 0 ) {
-		        // System.out.println("Read line: " + row);
-		        //System.out.println("First column of line: " + row.getField(0));
-		    	System.out.println(row);
+		    	if ((linecounter % 3) > 0 ) {
+		    		//System.out.println(row);
 		    	}
 		    linecounter ++;
 		    }
@@ -74,7 +73,7 @@ public class FileRead {
 				e.printStackTrace();
 		}
 	}
-	
+	/*
 	public void FileReadSimpleFlatMapper() throws FileNotFoundException, IOException {
 		File file = new File(SimpleFlatMapper_csvParser.class.getClassLoader().getResource("E:\\complete-distilled-2.csv").getFile());
 	     // Callback
@@ -178,6 +177,6 @@ public class FileRead {
 	            };
 	        }
 	    };
-	}
+	}*/
 }	
 

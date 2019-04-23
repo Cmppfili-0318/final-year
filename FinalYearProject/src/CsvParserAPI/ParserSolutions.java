@@ -23,6 +23,12 @@ public class ParserSolutions {
 	static long startTime = System.currentTimeMillis();
 	private static long total = 0;
 	long elapsedTime = System.currentTimeMillis() - startTime;	
+	String filePath = "C:\\complete-distilled-2.csv";
+	
+	public ParserSolutions() {
+		
+		
+	}
 	
 /*	public Reader getReader(String relativePath) throws UnsupportedEncodingException {
 		try {
@@ -31,15 +37,15 @@ public class ParserSolutions {
 			throw new IllegalStateException("Unable to read input", e);
 		}
 	}
-*/
+
 	    /* Using complete-distilled-sorted.csv
 		 * 1st attempt with % 5 = 8.2132 m
 		 * 2nd attempt with % 3 = 6.7771 m
 		 * 3rd attempt with % 3 = 
-		 */
-	/*
-		public void fastCsvAtOnce(String path) throws IOException {
-			File file = new File(path);
+		 *
+
+	public void fastCsvAtOnce() throws IOException {
+			File file = new File("C:\\complete-distilled-2.csv");
 			CsvReader csvReader = new CsvReader();
 
 			CsvContainer csv = csvReader.read(file, StandardCharsets.UTF_8);
@@ -48,9 +54,9 @@ public class ParserSolutions {
 			    System.out.println("First column of line: " + row.getField(0));
 			}
 		}
-		
+		*/
 			
-		public void usingCustBuffReader() throws FileNotFoundException, IOException {
+	/*	public void usingCustBuffReader() throws FileNotFoundException, IOException {
 			try (CustomBufferedReader data = new CustomBufferedReader(new FileReader(new File(this.getClass().getResource("E:\\complete-distilled-sorted.csv").getPath())))) {;
 			String s;
 					while ((s = data.readLine()) != null) {
@@ -68,11 +74,10 @@ public class ParserSolutions {
 	
 		
 		public void fastCsv(String filePath) { 
-			ArrayList<HashMap<String,String>> ArrayL = new ArrayList<>();
-			HashMap<String,String> Hash = new HashMap<>();
 			File file = new File(filePath);
 			CsvReader csvReader = new CsvReader();
 			int linecounter = 1;
+			long elapsedTime = System.currentTimeMillis() - startTime;
 
 			try (CsvParser csvParser = csvReader.parse(file, StandardCharsets.UTF_8)) {
 				CsvRow row;
@@ -80,11 +85,7 @@ public class ParserSolutions {
 					if ((linecounter % 3) > 0 ) {
 						// System.out.println("Read line: " + row);
 						//System.out.println("First column of line: " + row.getField(0));
-						System.out.println(row);
-						Hash.clear();
-						Hash.put("File Extenstion", row.getField(0)); // Change to file ext index
-						Hash.put("Job ID", row.getField(1)); // Change this to job ID
-						ArrayL.add(Hash);
+						//System.out.println(row);
 		    	
 				}
 				linecounter ++;

@@ -21,9 +21,9 @@ public class FileInput {
 	//Last 2 backslashes are not followed by any special characters
 	private static final Pattern FIELD_DELIMETER_PATTERN = Pattern.compile("\\^\\|\\^");	
 	
-/*	private void usingScanner() throws FileNotFoundException {
+	private void usingScanner() throws FileNotFoundException {
 		String s;
-		try (Scanner data = new Scanner(new File(this.getClass().getResource("complete-distilled-sorted.csv").getPath()))) {
+		try (Scanner data = new Scanner(new File(this.getClass().getResource("C:\\complete-distilled-2.csv").getPath()))) {
 			while (data.hasNextLine()) {
 				s = data.nextLine();
 				String[] fields = FIELD_DELIMETER_PATTERN.split(s, 0);
@@ -51,7 +51,7 @@ public class FileInput {
 			System.err.println("Error");
 	}
 } 
-	/*Fastest = 8.6 minutes
+	/*1st attempt 516000ms
 	* 2nd attempt 481155ms
 	* 3rd attempt 469065ms
 	* Using the custom buffered reader in comparison to buffered reader
@@ -73,7 +73,7 @@ public class FileInput {
 		}
 	}
 	
-/*	private void readFileUsingLineReader() {
+	private void readFileUsingLineReader() {
 
 	        try (LineNumberReader data = new LineNumberReader(new FileReader(new File(this.getClass().getResource("complete-distilled-sorted.csv").getPath())))) {
 	            String s;
@@ -118,5 +118,5 @@ public class FileInput {
 	            System.err.println("Error");
 	        }
 
-	   } */
+	   } 
 }
